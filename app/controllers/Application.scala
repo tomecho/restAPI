@@ -24,18 +24,26 @@ class Application extends Controller {
 
 
   def update = ???
+  //TODO: reformat response to expected response from project specifications
   def showAll() = Action {
     val dd = new DataDriver
     Ok(Json.toJson(dd.getAll))
   }
+
+  /** *
+    *
+    * @param uid
+    * @return Action
+    */
   def show(uid: Long) =  Action {
     val dd = new DataDriver
     Ok(Json.toJson(dd.getByUID(uid)))
   }
+  //TODO: return errors beautifully
   def delete(uid: Long) = Action {
     val dd = new DataDriver
     if(dd.removeUser(uid)){
-      Ok()
+      Ok("")
     } else {
       Ok("failure")
     }

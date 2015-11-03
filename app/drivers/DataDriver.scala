@@ -38,13 +38,15 @@ class DataDriver {
    *
    * @return Map[String,String] query results
    */
-  def getAll: Map[String, String] = {
-    var out = Map[String, String]()
+  def getAll: Vector[String] = {
+    var out = Vector[String]()
     val conn = DB.getConnection("default")
     val s = conn.createStatement()
     val rs: ResultSet = s.executeQuery("SELECT UID FROM OBJECTS")//
     while(rs.next()){
-      out = out + ("URL" -> ("/api/objects/"+rs.getString("UID")))
+      println("before " + out)
+      out = out :+ ("/api/objects/"+rs.getString("UID"))
+      println("after " + out)
     }
     out
   }

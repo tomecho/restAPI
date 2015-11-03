@@ -10,8 +10,8 @@ GET           /assets/*file            controllers.Assets.versioned(path="/publi
 
 
 #REST API
-#POST          /api/objects             controllers.Application.create
+#POST          /api/objects/             controllers.Application.create
 #PUT           /api/objects/:uid        controllers.Application.update(uid: Long)
-GET           /api/objects             controllers.Application.showAll
+GET           /api/objects/             controllers.Application.showAll
 GET           /api/objects/:uid        controllers.Application.show(uid: Long)
 DELETE        /api/objects/:uid        controllers.Application.delete(uid: Long)
