@@ -20,4 +20,4 @@ resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
 routesGenerator := InjectedRoutesGenerator
 
 
-libraryDependencies += "sqlite-jdbc"
+//libraryDependencies += "org.xerial" % "sqlite-jdbc" % "3.8.0-SNAPSHOT"

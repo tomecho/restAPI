@@ -12,9 +12,14 @@ import play.api.routing.Router
 import play.api.Play.current
 
 class DataDriver {
+  /** Searches database by uid
+   *
+   * @param uid
+   * @return Map[String,String] query results
+   */
   def getByUID(uid: Long): Map[String, String] ={
     val conn = DB.getConnection("default")
-    val s = conn.prepareStatement("SELECT UID, FIRSTNAME, LASTNAME, DOB, DOD FROM OBJECTS WHERE UID ?")
+    val s = conn.prepareStatement("SELECT * FROM OBJECTS WHERE UID = ?")
     s.setLong(1,uid)
     val rs: ResultSet = s.executeQuery()
     var out = Map[String, String]()
@@ -28,15 +33,40 @@ class DataDriver {
     conn.close()
     out
   }
+
+  /**Gets all database content by UID
+   *
+   * @return Map[String,String] query results
+   */
   def getAll: Map[String, String] = {
     var out = Map[String, String]()
     val conn = DB.getConnection("default")
     val s = conn.createStatement()
-    val rs: ResultSet = s.executeQuery("SELECT * FROM INFORMATION_SCHEMA.TABLES")//SELECT UID FROM OBJECTS
+    val rs: ResultSet = s.executeQuery("SELECT UID FROM OBJECTS")//
     while(rs.next()){
-      println(rs.getString(3))
-      //out = out + ("URL" -> ("/api/objects/"+rs.getString("UID")))
+      out = out + ("URL" -> ("/api/objects/"+rs.getString("UID")))
     }
     out
+  }
+  def addUser = {
+    val conn = DB.getConnection("default")
+    val s = conn.prepareStatement("SELECT UID, FIRSTNAME, LASTNAME, DOB, DOD FROM OBJECTS WHERE UID ?")
+  }
+  def removeUser(uid: Long): Boolean = {
+    val conn = DB.getConnection("default")
+    val s = conn.prepareStatement("DELETE FROM OBJECTS WHERE UID = ?")
+    s.setLong(1,uid)
+    s.execute()
+    val c = conn.prepareStatement("SELECT UID FROM OBJECTS WHERE UID = ?")
+    c.setLong(1,uid)
+    val rs: ResultSet = c.executeQuery()
+    if(rs.next()) {
+      conn.close()
+      return false
+    }
+    else {
+      conn.close()
+      return true
+    }
   }
 }

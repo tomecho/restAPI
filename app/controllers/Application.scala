@@ -3,7 +3,7 @@ package controllers
 import drivers.DataDriver
 import play.api._
 import play.api.db.DB
-import play.api.libs.json.Json
+import play.api.libs.json.{JsError, Json}
 import play.api.mvc._
 
 class Application extends Controller {
@@ -12,9 +12,17 @@ class Application extends Controller {
   }
 
   def create = ???
-    //request.body.validate[(Long,String,String,Long,Long)].map { //uid, first, last, dob, dod
-     // case name
-    //}
+//    Action(parse.json) {
+//    var data = Map[String, String]()
+//    request => request.body.validate[(String, String)].map{
+//      case (key, value) => data = data + (key -> value)
+//    }.recoverTotal{
+//      e => BadRequest("Detected error:"+ JsError.toFlatJson(e))
+//    }
+//        Ok
+//  }
+
+
   def update = ???
   def showAll() = Action {
     val dd = new DataDriver
@@ -24,5 +32,12 @@ class Application extends Controller {
     val dd = new DataDriver
     Ok(Json.toJson(dd.getByUID(uid)))
   }
-  def delete = ???
+  def delete(uid: Long) = Action {
+    val dd = new DataDriver
+    if(dd.removeUser(uid)){
+      Ok()
+    } else {
+      Ok("failure")
+    }
+  }
 }
