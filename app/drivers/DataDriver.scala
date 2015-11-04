@@ -90,6 +90,16 @@ class DataDriver {
     return user
   }
 
+  /** *  Almost exactly the same as addUser
+    *
+    * @param user
+    * @return
+    */
+  def changeUser(user: User): User = {
+    removeUser(user.uid.toString)
+    addUser(user)
+  }
+
   /** * remove the user from database
     *
     * @param uid of the user
