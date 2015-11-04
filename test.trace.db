@@ -188,3 +188,9 @@ org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "SELECT UID FROM OBJ
 SELECT UID FROM OBJECTS WHERE UID ? [42000-187]
 11-02 22:56:31 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLException: The object is already closed [90007-187]
+11-03 21:23:36 jdbc[522]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'robertson' (OBJECTS: DOB BIGINT)"; SQL statement:
+INSERT INTO OBJECTS VALUES(? , ? , ? , ? , ?) -- (?1, ?2, ?3, ?4, ?5) [22018-187]
+11-03 21:29:52 jdbc[532]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'robertson' (OBJECTS: DOB BIGINT)"; SQL statement:
+INSERT INTO OBJECTS VALUES(? , ? , ? , ? , ?) -- (?1, ?2, ?3, ?4, ?5) [22018-187]
